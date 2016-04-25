@@ -163,7 +163,7 @@ void ofApp::draw(){
 ```
 BAM ! It should look something like this now.
 
-<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" height="400">
+<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" width="280"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height = "355"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" width="280">
 
 
 -
@@ -314,6 +314,5 @@ After adding the code above, pressing space bar would allow you to change betwee
 
 
 ####Video demo:
---
 
 [Moving Mesh video demo](https://drive.google.com/open?id=0B7a_3eIMDihFSkY3aTNWdW1DUG8)
