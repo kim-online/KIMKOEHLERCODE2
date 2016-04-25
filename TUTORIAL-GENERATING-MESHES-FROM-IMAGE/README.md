@@ -124,6 +124,39 @@ Now your picture should look something like this!
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/3.png" height="400">
 
+First step to make it 3D is to change the Z value of every point. In this example it is based on saturation. We are maping the saturation value to the Z value.
+Add this in the first for loop:
+```
+if (intensity >= intensityThreshold) {
+                float saturation = c.getSaturation();
+                float z = ofMap(saturation, 0, 255, -100, 100);
+                ofVec3f pos(x*4, y*4, z);
+                mesh.addVertex(pos);
+                mesh.addColor(c);
+            }
+```
+
+Last step is to add a camera that we can change and look around in 3d with. Add this to the header file:
+```	
+	ofEasyCam easyCam;
+```
+Then update your draw() so it looks like this:
+```
+void ofApp::draw(){
+    ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
+
+    easyCam.begin();
+        ofPushMatrix();
+            ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
+            mesh.draw();
+        ofPopMatrix();
+    easyCam.end();
+}
+```
+BAM ! It should look something like this now.
+
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400">
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height="400">
