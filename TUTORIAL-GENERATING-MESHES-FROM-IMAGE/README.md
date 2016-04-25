@@ -15,7 +15,7 @@ The first thing we will do in the code is changing the window size(int the main.
 
 ```
 ofSetupOpenGL(564,714,OF_WINDOW);
-``
+```
 In your ofApp.h file add:
 ```
 ofImage image;
