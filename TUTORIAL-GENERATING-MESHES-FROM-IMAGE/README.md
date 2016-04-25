@@ -166,10 +166,10 @@ BAM ! It should look something like this now.
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" width="280"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height = "355"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" width="280">
 
 
--
-
+--
 ###Animate the Mesh
 ---
+
 
 After that, it's time for animating your mesh. And here is an example of animating an 2D mesh.
 
@@ -252,9 +252,9 @@ void ofApp::update(){
 ```
 Then your mesh should be expanding back and forth.
 
--
-###Add Gui Slider and Toggle Mesh Modes
 --
+###Control Speed and Toggle Mesh Effects
+---
 
 After the animated mesh, we can use gui slider to control its expanding speed.
 
@@ -277,7 +277,7 @@ gui.draw();
 
 Inside the for loop in your update(), change `float saturation = c.getSaturation();` to:
 ```
-//change mode when space key pressed
+//change effects when space key pressed
 if(pressed){
    intensity = c.getLightness();
 }else{
@@ -292,7 +292,7 @@ intensityThreshold += speed * x;
 
 In your keyPressed() function, add this section of code:
 ```
-    //toggle modes
+    //toggle different effects
     if(key == ' '){
         if(!pressed){
             pressed = true;
@@ -302,11 +302,10 @@ In your keyPressed() function, add this section of code:
     }
 ```
 
-After adding the code above, pressing space bar would allow you to change between different effects.
+After adding the code above, pressing space bar would allow you to change between different mesh effects.
  
--
-####Final Result:
 --
+####Final Result:
 
 **Moving Mesh Screenshots:**
 
