@@ -71,6 +71,57 @@ void ofApp::draw(){
 
 We choose to use a blue background because it makes it easier to see where the mesh is created. As you can see, it is only created where there are bright colors in the picture. There are other variables you can base your threshold on, in this case we are using getBrightness(), but you can use others like getHex(), getLightness(), getHue(), getSaturation() etc etc.
 
+Now let us create a cooler background, in the draw:
+```
+ ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
+    mesh.draw();
+```    
+By running through all these pixels we have created a lot of Vertices, a bit to much to process actually. Thus we have to resize the image. But don't worry, we are generating a mesh, not creating a HQ image. Add this to setup:
+```
+image.load("1.png");
+image.resize(200, 200);
+```
+But we have to add some more code to put the points back in position again:
+```
+if (intensity >= intensityThreshold) {
+    // We shrunk our image by a factor of 4, so we need to multiply our pixel
+    // locations by 4 in order to have our mesh cover the openFrameworks window
+    ofVec3f pos(x*4, y*4, 0.0);
+    mesh.addVertex(pos);
+    mesh.addColor(c);
+}
+```
+Now that this sketch is easier to process, lets add som lines!
+
+First add this to setup:
+```
+mesh.setMode(OF_PRIMITIVE_LINES); //Change from points to lines
+
+mesh.enableIndices();
+```
+We now want to connect the lines. But not all of them, thus we put a threshold set by distance between all the points. You can change the threshold to connect more or less lines.
+Add this after the last loop:
+```
+float connectionDistance = 30;
+int numVerts = mesh.getNumVertices();
+for (int a=0; a<numVerts; ++a) {
+    ofVec3f verta = mesh.getVertex(a);
+    for (int b=a+1; b<numVerts; ++b) {
+        ofVec3f vertb = mesh.getVertex(b);
+        float distance = verta.distance(vertb);
+        if (distance <= connectionDistance) {
+            // In OF_PRIMITIVE_LINES, every pair of vertices or indices will be
+            // connected to form a line
+            mesh.addIndex(a);
+            mesh.addIndex(b);
+        }
+    }
+}
+```
+Now your picture should look something like this!
+
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/3.png" height="400">
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400">
