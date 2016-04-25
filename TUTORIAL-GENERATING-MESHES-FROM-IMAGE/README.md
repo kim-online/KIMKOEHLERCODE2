@@ -170,10 +170,13 @@ BAM ! It should look something like this now.
 ###Animate the Mesh
 ---
 
+After that, it's time to animate your mesh. And here is an example of animating an 2D mesh.
 
-After that, it's time for animating your mesh. And here is an example of animating an 2D mesh.
+This is the image I am going to use, you can choose the image you like.
 
-In order to animate the mesh, we would need to put our mesh generation part into our update() function, and keep changing the value of intensityThreshold. So, we need to make some global variables outside the for loop we used.
+<img src = "https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/CODE/Mesh%20Generator/bin/data/image.jpg" width = "400">
+
+In order to animate the mesh, we would need to put the mesh generation part into update() function, and keep changing the value of `intensityThreshold`. So, we need to make some global variables outside the for loop we used.
 
 In your ofApp.h file add:
 ```
@@ -187,7 +190,7 @@ float intensity;
 int x;
 ```
 
-This time, we would try to use another mesh mode, and add a few lines to your setup():
+This time, we would try to use another mesh mode, and add a few lines in your setup():
 ```
 void ofApp::setup(){
     
@@ -195,8 +198,8 @@ void ofApp::setup(){
     image.resize(1024, 800);
     
     //pick mesh mode
-    //    mesh.setMode(OF_PRIMITIVE_POINTS);
-    //    mesh.setMode(OF_PRIMITIVE_LINES);
+//    mesh.setMode(OF_PRIMITIVE_POINTS);
+//    mesh.setMode(OF_PRIMITIVE_LINES);
     mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
     
     mesh.enableColors();
@@ -207,7 +210,7 @@ void ofApp::setup(){
     //generate mesh
     intensityThreshold = 0.0;
     
-    //copy of the original mesh
+    //make a copy of the original mesh
     meshCopy = mesh;
     
     x=1;
@@ -222,6 +225,7 @@ void ofApp::update(){
     //control changing speed
     intensityThreshold += 10 * x;
     
+    //make it move back and forth
     if(intensityThreshold > 225){
         x = -1;
     }else if(intensityThreshold <= 0){
@@ -250,7 +254,7 @@ void ofApp::update(){
     
 }
 ```
-Then your mesh should be expanding back and forth.
+Then your mesh should be able to expand back and forth.
 
 --
 ###Control Speed and Toggle Mesh Effects
@@ -260,6 +264,10 @@ After the animated mesh, we can use gui slider to control its expanding speed.
 
 Set up your Gui slider in your ofApp.h file:
 ```
+# include "ofxGui.h"
+
+//...
+
 ofxPanel gui;
 ofxFloatSlider speed;
 ```
@@ -277,7 +285,7 @@ gui.draw();
 
 Inside the for loop in your update(), change `float saturation = c.getSaturation();` to:
 ```
-//change effects when space key pressed
+//change effects when press space key
 if(pressed){
    intensity = c.getLightness();
 }else{
