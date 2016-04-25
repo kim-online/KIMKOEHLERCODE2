@@ -15,7 +15,23 @@ The first thing we will do in the code is changing the window size(int the main.
 
 ```
 ofSetupOpenGL(564,714,OF_WINDOW);
+``
+In your ofApp.h file add:
 ```
+ofImage image;
+```
+Lastly, in your ofApp.cpp:
+```
+void ofApp::setup(){
+    image.load("1.png");
+}
+
+void ofApp::draw(){
+    image.draw(0,0);
+}
+```
+
+When running this sketch, your picture should show up perfectly fitted in the window. Otherwise, you have failed and you are honestly a really bad coder.
 
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2.png" height="400">
