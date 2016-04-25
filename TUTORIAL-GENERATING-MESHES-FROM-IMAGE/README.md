@@ -13,9 +13,9 @@ Start by saving your picture to the data folder inside your openFrameworks proje
 
 The first thing we will do in the code is changing the window size(int the main.cpp file) to match your picture, in our case:
 
-<
+```
 ofSetupOpenGL(564,714,OF_WINDOW);
->
+```
 
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2.png" height="400">
