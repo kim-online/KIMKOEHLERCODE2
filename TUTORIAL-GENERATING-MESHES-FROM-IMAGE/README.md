@@ -3,13 +3,16 @@
 
 This tutorial is specifically for generating a mesh from and image, for basic information on generating Mesh please see [reference](http://openframeworks.cc/ofBook/chapters/generativemesh.html).
 
+You could add `ofxGui` library in order to use it in later section of this tutorial.
+
 ---------------------------------
+###Generate Mesh from an Image
 
 In this tutorial we will generate a mesh from an Image. Please choose an image and follow along. This is the image we will generate our mesh from in this tutorial:
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/1.jpg" height="400">
 
-Start by saving your picture to the data folder inside your openFrameworks project.
+Start by saving your picture to the bin/data folder inside your openFrameworks project.
 
 The first thing we will do in the code is changing the window size(int the main.cpp file) to match your picture, in our case:
 
@@ -157,14 +160,147 @@ void ofApp::draw(){
 ```
 BAM ! It should look something like this now.
 
-<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400">
+<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" height="400">
 
-<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height="400">
 
-<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" height="400">
+###Animate the Mesh
+
+After that, it's time for animating your mesh. And here is an example of animating an 2D mesh.
+
+In order to animate the mesh, we would need to put our mesh generation part into our update() function, and keep changing the value of intensityThreshold. So, we need to make some global variables outside the for loop we used.
+
+In your ofApp.h file add:
+```
+int w,h;
+
+ofMesh meshCopy;
+
+float intensityThreshold;
+float intensity;
+    
+int x;
+```
+
+This time, we would try to use another mesh mode, and add a few lines to your setup():
+```
+void ofApp::setup(){
+    
+    image.load("image.jpg");
+    image.resize(1024, 800);
+    
+    //pick mesh mode
+    //    mesh.setMode(OF_PRIMITIVE_POINTS);
+    //    mesh.setMode(OF_PRIMITIVE_LINES);
+    mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
+    
+    mesh.enableColors();
+    
+    w = image.getWidth();
+    h = image.getHeight();
+    
+    //generate mesh
+    intensityThreshold = 0.0;
+    
+    //copy of the original mesh
+    meshCopy = mesh;
+    
+    x=1;
+}
+```
+
+Your update() should look like this:
+```
+void ofApp::update(){
+    
+    //animate the mesh
+    //control changing speed
+    intensityThreshold += 10 * x;
+    
+    if(intensityThreshold > 225){
+        x = -1;
+    }else if(intensityThreshold <= 0){
+        x = 1;
+        //regenerate mesh each time it restarts, prevent slowing it down
+        mesh = meshCopy;
+    }
+    
+    for (int x=0; x<w; ++x) {
+        for (int y=0; y<h; ++y) {
+            
+            ofColor c = image.getColor(x, y);
+            intensity = c.getLightness();
+
+            if (intensity >= intensityThreshold) {
+                
+                float saturation = c.getSaturation();
+                float z = ofMap(saturation, 0, 255, -100, 100);
+                ofVec3f pos(x, y, z);
+                mesh.addVertex(pos);
+                mesh.addColor(c);
+            }
+            
+        }
+    }
+    
+}
+```
+Then your mesh should be expanding back and forth.
+
+###Add Gui Slider and Toggle Mesh Modes
+After the animated mesh, we can use gui slider to control its expanding speed.
+
+Set up your Gui slider in your ofApp.h file:
+```
+ofxPanel gui;
+ofxFloatSlider speed;
+```
+
+In your ofApp.cpp file, use `gui.setup()` and `gui.draw()` to use the slider.
+In setup(), add:
+```
+gui.setup();
+gui.add(speed.setup("Change Speed", 10.0, 0, 100.0));
+```
+In draw(), add:
+```
+gui.draw();
+```
+
+Inside the for loop in your update(), change `float saturation = c.getSaturation();` to:
+```
+//change mode when space key pressed
+if(pressed){
+   intensity = c.getLightness();
+}else{
+   intensity = c.getSaturation();
+}
+```
+
+Also, remember to set "speed" as the changing value of intensityThreshold:
+```
+intensityThreshold += speed * x;
+```
+
+In your keyPressed() function, add this section of code:
+```
+    //toggle modes
+    if(key == ' '){
+        if(!pressed){
+            pressed = true;
+        }else{
+            pressed = false;
+        }
+    }
+```
+
+After adding the code above, pressing space bar would allow you to change between different effects.
+ 
+####Final Result
+
+**Moving Mesh Screenshots:**
+
+<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-1.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-2.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-3.png" width="200">  <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-4.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-5.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-6.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-7.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-8.png" width="200"> 
+
+####Video demo:
 
 [Moving Mesh video demo](https://drive.google.com/open?id=0B7a_3eIMDihFSkY3aTNWdW1DUG8)
-
-**Moving Mesh screenshots:**
-
-<img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-1.png" height="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-2.png" width="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-3.png" width="400">  <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-4.png" width="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-5.png" width="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-6.png" width="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-7.png" width="400"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-8.png" width="400"> 
