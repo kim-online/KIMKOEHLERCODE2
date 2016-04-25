@@ -3,7 +3,7 @@
 
 This tutorial is specifically for generating a mesh from and image, for basic information on generating Mesh please see [reference](http://openframeworks.cc/ofBook/chapters/generativemesh.html).
 
-You could add `ofxGui` library in order to use it in later section of this tutorial.
+In order to use Gui functions in later section of this tutorial, you could add `ofxGui` library when you generate the project.
 
 -
 
