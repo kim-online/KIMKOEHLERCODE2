@@ -5,8 +5,11 @@ This tutorial is specifically for generating a mesh from and image, for basic in
 
 You could add `ofxGui` library in order to use it in later section of this tutorial.
 
----------------------------------
+-
+
 ###Generate Mesh from an Image
+---
+
 
 In this tutorial we will generate a mesh from an Image. Please choose an image and follow along. This is the image we will generate our mesh from in this tutorial:
 
@@ -163,7 +166,10 @@ BAM ! It should look something like this now.
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/4.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/5.png" height="400"><img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/6.png" height="400">
 
 
+-
+
 ###Animate the Mesh
+---
 
 After that, it's time for animating your mesh. And here is an example of animating an 2D mesh.
 
@@ -246,7 +252,10 @@ void ofApp::update(){
 ```
 Then your mesh should be expanding back and forth.
 
+-
 ###Add Gui Slider and Toggle Mesh Modes
+--
+
 After the animated mesh, we can use gui slider to control its expanding speed.
 
 Set up your Gui slider in your ofApp.h file:
@@ -295,12 +304,16 @@ In your keyPressed() function, add this section of code:
 
 After adding the code above, pressing space bar would allow you to change between different effects.
  
-####Final Result
+-
+####Final Result:
+--
 
 **Moving Mesh Screenshots:**
 
 <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-1.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-2.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-3.png" width="200">  <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-4.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-5.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-6.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-7.png" width="200"> <img src="https://github.com/kim-online/KIMKOEHLERCODE2/blob/master/TUTORIAL-GENERATING-MESHES-FROM-IMAGE/IMAGES/2-8.png" width="200"> 
 
+
 ####Video demo:
+--
 
 [Moving Mesh video demo](https://drive.google.com/open?id=0B7a_3eIMDihFSkY3aTNWdW1DUG8)
