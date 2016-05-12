@@ -31,7 +31,7 @@ public:
     
     //methods
     
-    void setPosition(float x, float y);
+    void setPosition(float eX, float eY);
     
     void setup();
     

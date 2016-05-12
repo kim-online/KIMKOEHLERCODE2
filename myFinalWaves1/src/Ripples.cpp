@@ -23,15 +23,15 @@ void Ripples::setup(){
     
 }
 
-void Ripples::setPosition(float x, float y)
+void Ripples::setPosition(float eX, float eY)
 {
-    posX = x;
-    posY = y;
+    posX = eX;
+    posY = eY;
 }
 
 void Ripples::draw(){
     float n = 56.5; // number of circles
-    r2 += 2; //
+    r2 += 4; //
     ofSetLineWidth(40);
     //Creating the circles
     xoff = 5.0;
@@ -47,9 +47,9 @@ void Ripples::draw(){
         
         // z = ofRandom(-70, 70);
         
-        // ofSetColor(0, 255, 0);
+         ofSetColor(0, 255, 0, ofMap(r2, 0, 1440, 255, 0));
         
-        
+       
         // ofSetLineWidth(5);
         ofNoFill();
         //if(i > 0 && i < 351){

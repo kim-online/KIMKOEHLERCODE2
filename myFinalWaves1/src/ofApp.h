@@ -4,6 +4,8 @@
 #include "Wave.hpp"
 #include "Vertex.hpp"
 #include "Ripples.hpp"
+#include "ofxOpenCv.h"
+#include "ofxKinect.h"
 
 
 class ofApp : public ofBaseApp{
@@ -32,6 +34,31 @@ public:
     vector <Ripples> ripple;
     int waveCounter;
     
+    ofxKinect kinect;
+    int angle;
+    ofxCvColorImage colorImg;
+    ofxCvGrayscaleImage greyImg;
+    ofxCvGrayscaleImage grayBg;
+    ofxCvGrayscaleImage grayDiff;
+    ofxCvGrayscaleImage greyThreshNear;
+    ofxCvGrayscaleImage greyThreshFar;
+    
+    ofxCvContourFinder contourFinder;
+    
+    bool bThreshOpenCv;
+    int nearThresh;
+    int farTresh;
+    vector <ofPoint> cursors;
+    
+    int thresholdValue;
+    bool bLearnBackground;
+    
+    float cameraZoom;
+    ofPoint last;
+    
+  //  ofxPanel gui;
+  //  ofxIntSlider treshHoldNear;
+  //  ofxIntSlider treshHoldFar;
 
     
     

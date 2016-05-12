@@ -31,6 +31,7 @@ void Wave::update(float back){
 }
 
 void Wave::draw(){
+    ofEnableSmoothing();
     //  keep = keep2;
     
     float line = ofMap(cos(ofGetElapsedTimef()), -1, 1, 2, 8);
